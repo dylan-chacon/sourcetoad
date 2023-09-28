@@ -68,9 +68,23 @@ const flatObject = (obj) => {
   return flattenObj;
 };
 
+const sumInternalArray = (obj) => {
+  for (const key in obj) {
+    if (Array.isArray(obj[key]) && obj[key].every((num) => typeof num === 'number')) {
+      const sum = obj[key].reduce((a, b) => a + b, 0);
+      const modifiedObj = { ...obj, some_total: sum };
+      delete modifiedObj[key];
+      return modifiedObj;
+    }
+  }
+  return obj;
+};
+
 function mutateArray(a) {
   const flattenArray = a.map((i) => flatObject(i));
-    return flattenArray;
+  const sumObj = flattenArray.map((i) => sumInternalArray(i));
+  
+  return sumObj;
 }
 
 $(document).ready(function() {
