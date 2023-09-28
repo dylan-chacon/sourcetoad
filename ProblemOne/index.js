@@ -55,8 +55,22 @@ var arr = [
   },
 ];
 
+const flatObject = (obj) => {
+  const flattenObj = Object.keys(obj).reduce((result, key) => {
+    if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+      return {
+        ...result,
+        ...obj[key],
+      };
+    }
+    return { ...result, [key]: obj[key] };
+  }, {});
+  return flattenObj;
+};
+
 function mutateArray(a) {
-    return a;
+  const flattenArray = a.map((i) => flatObject(i));
+    return flattenArray;
 }
 
 $(document).ready(function() {
