@@ -82,9 +82,10 @@ const sumInternalArray = (obj) => {
 
 function mutateArray(a) {
   const flattenArray = a.map((i) => flatObject(i));
-  const sumObj = flattenArray.map((i) => sumInternalArray(i));
+  const sumArr = flattenArray.map((i) => sumInternalArray(i));
+  const guestArr = sumArr.filter((i) => i.guest_type === 'guest');
   
-  return sumObj;
+  return guestArr;
 }
 
 $(document).ready(function() {
