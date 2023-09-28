@@ -84,8 +84,23 @@ function mutateArray(a) {
   const flattenArray = a.map((i) => flatObject(i));
   const sumArr = flattenArray.map((i) => sumInternalArray(i));
   const guestArr = sumArr.filter((i) => i.guest_type === 'guest');
+  const sortArr = guestArr.sort((a, b) => {
+    if (a.last_name < b.last_name) {
+      return -1;
+    }
+    if (a.last_name > b.last_name) {
+      return 1;
+    }
+    if (a.first_name < b.first_name) {
+      return -1;
+    }
+    if (a.first_name > b.first_name) {
+      return 1;
+    }
+    return 0;
+  });
   
-  return guestArr;
+  return sortArr;
 }
 
 $(document).ready(function() {
