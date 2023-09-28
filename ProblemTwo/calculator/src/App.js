@@ -6,10 +6,14 @@ function App() {
   const [operator, setOperator] = useState(null);
   const [previousValue, setPreviousValue] = useState(null);
   const [waitingForOperand, setWaitingForOperand] = useState(false);
+  const [operationPerformed, setOperationPerformed] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const inputDigit = (digit) => {
-    if (waitingForOperand) {
+    if (operationPerformed) {
+      setDisplayValue(String(digit));
+      setOperationPerformed(false);
+    } else if (waitingForOperand) {
       setDisplayValue(String(digit));
       setWaitingForOperand(false);
     } else {
@@ -69,6 +73,7 @@ function App() {
         setOperator(null);
         setPreviousValue(null);
         setWaitingForOperand(true);
+        setOperationPerformed(true);
         return setErrorMessage('');
     }
   };
@@ -121,7 +126,6 @@ function App() {
   const handleToggleSign = () => {
     setDisplayValue(String(-parseFloat(displayValue)));
   };
-  console.log(displayValue)
 
   return (
     <div className="calculator">
